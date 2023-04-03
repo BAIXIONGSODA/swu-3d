@@ -6,7 +6,7 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from "vue";
 import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 const canvasContainer = ref(null);
@@ -21,23 +21,6 @@ onMounted(() => {
   camera.aspect = window.innerWidth / window.innerHeight;
   // 更新相机投影矩阵
   camera.updateProjectionMatrix();
-
-  // 加载背景图片
-  const loader = new THREE.TextureLoader();
-  const texture = loader.load('/assets/images/sky.jpg');
-  texture.mapping = THREE.EquirectangularReflectionMapping;
-
-  scene.background = texture;
-  scene.environment = texture;
-
-  // 加载模型
-  const gltfLoader = new GLTFLoader();
-  gltfLoader.load('/assets/models/scene.gltf', (gltf) => {
-    let model = gltf.scene;
-    console.log(model);
-    // 设置模型的缩放
-    scene.add(model);
-  });
 
   // 初始化渲染器
   const renderer = new THREE.WebGLRenderer({ antialias: true });
